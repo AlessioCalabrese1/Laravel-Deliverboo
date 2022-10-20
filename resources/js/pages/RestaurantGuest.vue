@@ -40,7 +40,7 @@
                                             <span class="euro">€ </span>{{ dish.price }}
                                         </h4>
                                         <div class="add-button-container" @click="addToCart(dish)" :class="dish.visible==1 ? 'd-none' : ''">
-                                            <div class="add-button">+</div>
+                                            <i class="fa-solid fa-plus"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -301,6 +301,10 @@
         text-align: center;
         line-height: 40px;
         cursor: pointer;
+
+        i{
+            font-size: 1.3rem;
+        }
     }
 
     .trash {
