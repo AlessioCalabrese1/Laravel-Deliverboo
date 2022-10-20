@@ -24,21 +24,23 @@
                                     <div class="col-12 img-container ">
                                         <img class="img-fluid image" :src="checkUrl(dish.dishPic)" :alt="dish.name">
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center w-100 mt-3">
+                                    <div class="d-flex justify-content-between align-items-center w-100 pt-4 pb-2 pr-4 pl-4">
                                         <div>
-                                            <div class="text-left font-weight-bold col-12 text-capitalize px-4">
+                                            <h2 class="text-left font-weight-bold col-12 text-capitalize p-0">
                                                 {{ dish.name }}
-                                            </div>
+                                            </h2>
 
-                                            <div class="text-left font-weight-bold col-12 text-capitalize px-4 mb-3">
-                                                <span class="euro">€ </span>{{ dish.price }}
-                                            </div>
+                                            <p class="m- pb-2"> {{ dish.description }}</p>
+                                            <hr>
                                         </div>
+                                    </div>
 
-                                        <div class="add-button-container mx-3 mb-3" @click="addToCart(dish)" :class="dish.visible==1 ? 'd-none' : ''">
-                                            <div class="add-button">
-                                                +
-                                            </div>
+                                    <div class="d-flex justify-content-between align-items-center w-100 pt-2 pb-4 pr-4 pl-4">
+                                        <h4 class="text-left font-weight-bold text-capitalize p-0 m-0">
+                                            <span class="euro">€ </span>{{ dish.price }}
+                                        </h4>
+                                        <div class="add-button-container" @click="addToCart(dish)" :class="dish.visible==1 ? 'd-none' : ''">
+                                            <div class="add-button">+</div>
                                         </div>
                                     </div>
                                 </div>
