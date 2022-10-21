@@ -39,6 +39,7 @@
                                             :class="dish.visible == 1 ? 'd-none' : ''">
                                             <div class="add-button">+</div>
                                         </div>
+                                        div
                                     </div>
                                 </div>
                             </div>
@@ -137,19 +138,26 @@
                     this.cart.push(dish);
                     this.length++;
                     localStorage.setItem("cart", JSON.stringify(this.cart));
+
                 }
                 //!  se il carrello non e' vuoto controlliamo che stiamo ordinando dallo stesso ristorante in caso contrario resettiamo il cart e pushamo il piatto
                 else if (this.cart[0].restaurant_id != this.$route.params.id) {
-                    const result = window.confirm(
-                        'If you click add here we\'ll clear your cart, because our policy says "you can order from only one restaurant", Are you sure?'
-                    );
-                    if (result) {
+
+                     //Sweetalert popup
+                    Vue.swal({
+                        title: "If you click add here we\'ll clear your cart, because our policy says \"you can order from only one restaurant\"",
+                        showDenyButton: true,
+                        confirmButtonText: "Yes",
+                    }).then((result) => {
+                        //In questo if c'è la funzione per svuotare il carrello
+                        if (result.isConfirmed) {
                         this.cart = [];
                         localStorage.clear();
                         this.cart.push(dish);
                         this.length++;
                         localStorage.setItem("cart", JSON.stringify(this.cart));
-                    }
+                        }
+                    });
                 }
                 //! pushamo il piatto aggiuntivo
                 else {
@@ -166,18 +174,18 @@
             clearCart() {
                 //!popup per la conferma della cancellazione
                 if (this.cart != null && this.cart.length > 0) {
+                    //Sweetalert popup
                     Vue.swal({
                         title: "Are you sure?",
                         showDenyButton: true,
                         confirmButtonText: "Yes",
                     }).then((result) => {
-                        /* Read more about isConfirmed, isDenied below */
+                        //In questo if c'è la funzione per svuotare il carrello
                         if (result.isConfirmed) {
                             this.cart = [];
                             localStorage.clear();
                             this.total = 0;
                             this.length = 0;
-                            Swal.fire("Saved!", "", "success");
                         }
                     });
                 } else {
