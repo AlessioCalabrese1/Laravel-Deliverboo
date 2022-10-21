@@ -65,6 +65,7 @@
                         </div>
                         <div class="row bg-white my-shadow my-rounded mt-5">
                             <div class="col-12 p-5">
+                                <!-- Piatti ordinati -->
                                 <div class="row cart">
                                     <div class="col-12 restaurant-in-cart">
                                         <h3>Your Order :</h3>
@@ -86,9 +87,26 @@
                                     <div class="col-8 text-capitalize">total:</div>
                                     <div class="col-4">€{{ Math.round(total * 100) / 100 }}</div>
                                 </div>
-                            </div>
-                            <div class="col-12 text-center py-3">
-                                <button class="btn btn-primary rounded-pill">Checkout</button>
+                                <!-- form -->
+                                <div class="row form-group w-100">
+                                  <form action="" method="" class="w-100" @submit.prevent>
+                                    <div class="col-12 py-3">
+                                      <h5>Your info :</h5>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                      <input type="text" class="border-0 my-rounded bg-light w-100 px-4 py-2 form-control" placeholder="Name*" required v-model="orderName" >
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                      <input type="text" class="border-0 my-rounded bg-light w-100 px-4 py-2 form-control" placeholder="Surname*" required v-model="orderSurname">
+                                    </div>
+                                    <div class="col-12">
+                                      <textarea class="form-control border-0 px-4 font-weight-lighter" placeholder="Add some comment, it will help us with the delivery" name="description" rows="3" v-model="orderComment"></textarea>
+                                    </div>
+                                    <div class="col-12 text-center py-3">
+                                      <input type="submit" value="Checkout" class="btn btn-info rounded-pill" @click="sendOrder()">
+                                    </div>
+                                  </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -109,6 +127,11 @@
                 counter: 0,
                 total: 0,
                 length: 0,
+
+                orderName : '',
+                orderSurname: '',
+                orderComment: '',
+                orderJson : {}
             };
         },
         methods: {
@@ -173,6 +196,7 @@
             //! clear del carrello
             clearCart() {
                 //!popup per la conferma della cancellazione
+                console.log(this.orderJson)
                 if (this.cart != null && this.cart.length > 0) {
                     //Sweetalert popup
                     Vue.swal({
@@ -214,9 +238,21 @@
                     return "/storage/" + img;
                 }
             },
+
+            sendOrder(){
+                console.log(this.cart[0])
+                axios.post(`http://127.0.0.1:8000/api/storeOrder`,{
+                    data:this.cart[0]
+                }).then((response) => {
+                    console.warn(response)
+                }).catch((error) => {
+                    console.error(error)
+                })
+            }
         },
         created() {
             this.getRestaurant();
+
         },
     };
 </script>
@@ -316,5 +352,11 @@
     .grey-filter {
         filter: grayscale(100%);
         opacity: 0.5;
+    }
+
+    .form-container{
+      input{
+        border:none;
+      }
     }
 </style>

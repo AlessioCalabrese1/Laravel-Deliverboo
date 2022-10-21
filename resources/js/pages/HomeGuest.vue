@@ -19,10 +19,11 @@
         <div class="container-fluid">
             <div class="container-lg mt-5 slider">
                 <div class="row flex-nowrap">
-                    <div class="col-6 col-lg-2" v-for="category in categories" :key="category.id">
+                    <div class="col-6 col-lg-2" v-for="(category, index) in categories" :key="index">
                         <div class="mx-auto my-rounded order-card d-flex align-items-center justify-content-center text-capitalize"
                             :id="'categoria' + category.id"
-                            @click="activeCard(category), filterRestaurants(category.id)">
+                            @click="activeCard(index), filterRestaurants(category.id)"
+                            :class="controllerClicked[index] == true ? 'active-card' : ' '">
                             {{ category.name }}
                         </div>
                     </div>
@@ -104,6 +105,7 @@
         data: function () {
             return {
                 categories: [],
+                controllerClicked: [],
                 currentActive: '',
                 isClicked: false,
                 idCategory: null,
@@ -117,20 +119,21 @@
                 axios.get('/api/category')
                     .then((result) => {
                         this.categories = result.data.results
-                        console.log(this.categories)
+                        for (let index = 0; index < this.categories.length; index++) {
+                          this.controllerClicked[index] = false
+                        }
+                        console.log(this.controllerClicked);
                     })
                     .catch((error) => {
                         console.error(error)
-                    })
+                    });
             },
-            activeCard(category) {
-                if (document.querySelector('.active-card') != null) {
-                    document.querySelector('.active-card').classList.remove('active-card')
+            activeCard(index) {
+                if (this.controllerClicked[index] == false) {
+                  this.controllerClicked[index] = true
+                }else{
+                  this.controllerClicked[index] = false
                 }
-                this.idCategory = category.id
-                this.currentActive = document.getElementById('categoria' + this.idCategory).classList.add('active-card')
-
-                console.log(this.idCategory)
             },
 
             getRestaurants() {
