@@ -90,6 +90,7 @@ class RestaurantController extends Controller
     {
 
         //
+        dd($request);
         $sentData = $request->validate([
             'name' => 'required|min:2|max:40',
             'address' => 'required|min:6|max:80, deve contenere un numero',

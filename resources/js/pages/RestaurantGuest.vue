@@ -20,7 +20,8 @@
                         <h3 class="text-capitalize border-bottom py-4 m-0">menu</h3>
                         <div class="row mt-5">
                             <div class="col-12 col-md-4 mb-4 mt-0" v-for="dish in restaurant.dishes" :key="dish.id">
-                                <div class="dish-card row d-flex align-items-end flex-wrap mx-auto my-shadow" :class="dish.visible == 1 ? 'grey-filter' : ''">
+                                <div class="dish-card row d-flex align-items-end flex-wrap mx-auto my-shadow"
+                                    :class="dish.visible == 1 ? 'grey-filter' : ''">
                                     <div class="col-12 img-container ">
                                         <img class="img-fluid image" :src="checkUrl(dish.dishPic)" :alt="dish.name">
                                     </div>
@@ -35,7 +36,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="add-button-container mx-3 mb-3" @click="addToCart(dish)" :class="dish.visible==1 ? 'd-none' : ''">
+                                        <div class="add-button-container mx-3 mb-3" @click="addToCart(dish)"
+                                            :class="dish.visible==1 ? 'd-none' : ''">
                                             <div class="add-button">
                                                 +
                                             </div>
@@ -93,7 +95,7 @@
                                 </div>
                             </div>
                             <div class="col-12 text-center">
-                                <button class="btn btn-primary">invia</button>
+                                <button class="btn btn-primary" @click="storeCart()">invia</button>
                             </div>
                         </div>
 
@@ -105,122 +107,139 @@
 </template>
 
 <script>
-    import axios from 'axios'
+import axios from 'axios'
 
-    export default {
-        data: function () {
-            return {
-                restaurant: {},
-                cart: [],
-                counter: 0,
-                total: 0,
-                length:0
-            };
+export default {
+    data: function () {
+        return {
+            restaurant: {},
+            orderInfo: {
+                name : ' ',
+                surname: 'test'
+            },
+            cart: [],
+            counter: 0,
+            total: 0,
+            length: 0
+        };
+    },
+    methods: {
+        getRestaurant() {
+            axios.get(`http://127.0.0.1:8000/api/restaurant/${this.$route.params.id}`)
+                .then((response) => {
+                    this.restaurant = response.data.results;
+                    this.cart = JSON.parse(localStorage.getItem("cart"));
+                    this.length = this.cart.length
+                    this.total = localStorage.getItem("total")
+                }).catch((error) => {
+                    console.warn(error);
+                });
         },
-        methods: {
-            getRestaurant() {
-                axios.get(`http://127.0.0.1:8000/api/restaurant/${this.$route.params.id}`)
-                    .then((response) => {
-                        this.restaurant = response.data.results;
-                        this.cart = JSON.parse(localStorage.getItem("cart"));
-                        this.length = this.cart.length
-                        this.total = localStorage.getItem("total")
-                    }).catch((error) => {
-                        console.warn(error);
-                    });
-            },
 
-            //! funzione che pusha in un array i piatti selezionati e li carica sul local storage
-            addToCart(dish) {
-                //? fixa il local storage al primo avvio o al clear in quanto risulta null
-                if (this.cart == null) {
-                    this.cart = []
-                }
+        //! funzione che pusha in un array i piatti selezionati e li carica sul local storage
+        addToCart(dish) {
+            //? fixa il local storage al primo avvio o al clear in quanto risulta null
+            if (this.cart == null) {
+                this.cart = []
+            }
 
-                //? se il carrello e' vuoto pusha il piatto
-                if (this.cart.length == 0) {
-                    this.cart.push(dish)
-                    this.length++
-                    localStorage.setItem("cart", JSON.stringify(this.cart));
-
-                }
-                //!  se il carrello non e' vuoto controlliamo che stiamo ordinando dallo stesso ristorante in caso contrario resettiamo il cart e pushamo il piatto
-                else if (this.cart[0].restaurant_id != this.$route.params.id) {
-                    const result = window.confirm(
-                        'If you click add here we\'ll clear your cart, because our policy says "you can order from only one restaurant", Are you sure?'
-                        )
-                    if (result) {
-                        this.cart = []
-                        localStorage.clear();
-                        this.cart.push(dish)
-                        this.length++
-                        localStorage.setItem("cart", JSON.stringify(this.cart));
-                    }
-                }
-                //! pushamo il piatto aggiuntivo
-                else {
-                    this.cart.push(dish)
-                    this.length++
-                    localStorage.setItem("cart", JSON.stringify(this.cart));
-                }
-
-                this.total = this.total+dish.price
-                localStorage.setItem('total', this.total)
-
-            },
-
-            //! clear del carrello
-            clearCart() {
-                //!popup per la conferma della cancellazione
-                if (this.cart != null && this.cart.length > 0) {
-                    const result = window.confirm('Are you sure?')
-                    if (result) {
-                        this.cart = []
-                        localStorage.clear();
-                        this.total = 0
-                        this.length= 0
-                    }
-                } else {
-                    const alert = window.alert('No item on cart')
-                }
-            },
-            deleteSingleDish(dish, id) {
-                console.log(dish)
-                this.cart.splice(id, 1)
-                this.length--
-                localStorage.clear();
+            //? se il carrello e' vuoto pusha il piatto
+            if (this.cart.length == 0) {
+                this.cart.push(dish)
+                this.length++
                 localStorage.setItem("cart", JSON.stringify(this.cart));
-                if(this.cart.length!=0){
-                    this.total = this.total - dish.price
+
+            }
+            //!  se il carrello non e' vuoto controlliamo che stiamo ordinando dallo stesso ristorante in caso contrario resettiamo il cart e pushamo il piatto
+            else if (this.cart[0].restaurant_id != this.$route.params.id) {
+                const result = window.confirm(
+                    'If you click add here we\'ll clear your cart, because our policy says "you can order from only one restaurant", Are you sure?'
+                )
+                if (result) {
+                    this.cart = []
+                    localStorage.clear();
+                    this.cart.push(dish)
+                    this.length++
+                    localStorage.setItem("cart", JSON.stringify(this.cart));
                 }
-                else{
+            }
+            //! pushamo il piatto aggiuntivo
+            else {
+                this.cart.push(dish)
+                this.length++
+                localStorage.setItem("cart", JSON.stringify(this.cart));
+            }
+
+            this.total = this.total + dish.price
+            localStorage.setItem('total', this.total)
+
+        },
+
+        //! clear del carrello
+        clearCart() {
+            //!popup per la conferma della cancellazione
+            if (this.cart != null && this.cart.length > 0) {
+                const result = window.confirm('Are you sure?')
+                if (result) {
+                    this.cart = []
+                    localStorage.clear();
                     this.total = 0
+                    this.length = 0
                 }
-                
+            } else {
+                const alert = window.alert('No item on cart')
+            }
+        },
+        deleteSingleDish(dish, id) {
+            console.log(dish)
+            this.cart.splice(id, 1)
+            this.length--
+            localStorage.clear();
+            localStorage.setItem("cart", JSON.stringify(this.cart));
+            if (this.cart.length != 0) {
+                this.total = this.total - dish.price
+            }
+            else {
+                this.total = 0
+            }
 
-            },
-
-            //! funzione che controlla il path delle immagini se sono link o immagini caricate
-            checkUrl(img) {
-                console.log()
-                if (img.includes('http')) {
-                    return img
-                } else {
-                    return '/storage/' + img
-                }
-            },
 
         },
-        created() {
-            this.getRestaurant();
+
+        //! funzione che controlla il path delle immagini se sono link o immagini caricate
+        checkUrl(img) {
+            console.log()
+            if (img.includes('http')) {
+                return img
+            } else {
+                return '/storage/' + img
+            }
         },
-    }
+
+        storeCart() {
+            console.warn(this.orderInfo)
+            axios.post(`http://127.0.0.1:8000/api/storeOrder`, {
+                data: [this.cart,this.counter]
+            })
+                .then((response) => {
+                    // console.warn(response.data.data.data)
+                    this.cart = []
+                }).catch((error) => {
+                    console.error(error)
+                })
+        }
+
+    },
+    created() {
+        this.getRestaurant();
+    },
+}
 </script>
 
 <style lang="scss" scoped>
-    @import '../../sass/variables';
+@import '../../sass/variables';
 
-    /* .menu-container{
+/* .menu-container{
   row-gap: 35px;
 }
 .banner-container{
@@ -232,80 +251,81 @@
   margin: 0 auto;
 } */
 
-    .jumbo {
-        height: 400px;
+.jumbo {
+    height: 400px;
+    width: 100%;
+
+    img {
         width: 100%;
-
-        img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-        }
+        height: 400px;
+        object-fit: cover;
     }
+}
 
-    .container-lg {
-        h1 {
-            font-weight: 600;
-        }
+.container-lg {
+    h1 {
+        font-weight: 600;
     }
+}
 
-    .menu-container {
-        width: 95%;
+.menu-container {
+    width: 95%;
 
-        h3 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: $secondaryColor;
-        }
+    h3 {
+        font-size: 2rem;
+        font-weight: 600;
+        color: $secondaryColor;
     }
+}
 
-    .cart {
-        height: 200px;
-        overflow-y: scroll;
-    }
+.cart {
+    height: 200px;
+    overflow-y: scroll;
+}
 
-    .dish-card {
-        background-color: white;
-        border-radius: 30px;
-        width: 98%;
-    }
+.dish-card {
+    background-color: white;
+    border-radius: 30px;
+    width: 98%;
+}
 
-    .euro {
-        color: $primaryColor;
-    }
+.euro {
+    color: $primaryColor;
+}
 
-    .img-container {
-        padding: 0;
-        margin: 0;
-        width: 334px;
-        height: 250px;
+.img-container {
+    padding: 0;
+    margin: 0;
+    width: 334px;
+    height: 250px;
 
-        .image {
-            object-fit: contain;
-            border-top-left-radius: 30px;
-            border-top-right-radius: 30px;
-            height: 100%;
-            width: 100%;
-        }
+    .image {
+        object-fit: contain;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        height: 100%;
+        width: 100%;
     }
+}
 
-    .add-button-container {
-        background-color: green;
-        color: white;
-        font-size: 25px;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        text-align: center;
-        line-height: 40px;
-        cursor: pointer;
-    }
+.add-button-container {
+    background-color: green;
+    color: white;
+    font-size: 25px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+}
 
-    .trash {
-        cursor: pointer;
-    }
-    .grey-filter{
-        filter: grayscale(100%);
-        opacity: 0.5;
-    }
+.trash {
+    cursor: pointer;
+}
+
+.grey-filter {
+    filter: grayscale(100%);
+    opacity: 0.5;
+}
 </style>

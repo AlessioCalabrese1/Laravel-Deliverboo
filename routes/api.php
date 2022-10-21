@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::namespace('Api')->group(function(){
     Route::get('/restaurant', 'RestaurantController@index');
     Route::get('/restaurant/filter/{id}', 'RestaurantController@filter');
+    Route::post('/storeOrder', 'OrderController@store');
     /** ATTENZIONE ALL'ORDINE DELLE ROTTE QUANDO ABBIAMO UN PARAMETRO, SE LA ROTTA NON è UNA SHOW METTERLA PRIMA */
     Route::get('/restaurant/{id}', 'RestaurantController@show');
 
