@@ -1,15 +1,15 @@
 <template>
-    <section>
-        <!-- jumbo -->
-        <div class="jumbo">
-            <img :src="restaurant.restaurantPic" :alt="restaurant.name + 'photo'">
-        </div>
-        <!-- restaurant name -->
-        <div class="container-lg py-4">
-            <h1 class="text-center my-4">
-                {{ restaurant.name }}
-            </h1>
-        </div>
+  <section>
+    <!-- jumbo -->
+    <div class="jumbo">
+      <img :src="restaurant.restaurantPic" :alt="restaurant.name + 'photo'" />
+    </div>
+    <!-- restaurant name -->
+    <div class="container-lg py-4">
+      <h1 class="text-center my-4">
+        {{ restaurant.name }}
+      </h1>
+    </div>
 
         <div class="container-fluid">
             <div class="row">
@@ -31,10 +31,19 @@
                                                 {{ dish.name }}
                                             </div>
 
-                                            <div class="text-left font-weight-bold col-12 text-capitalize px-4 mb-3">
-                                                <span class="euro">€ </span>{{ dish.price }}
-                                            </div>
-                                        </div>
+                      <div
+                        class="
+                          text-left
+                          font-weight-bold
+                          col-12
+                          text-capitalize
+                          px-4
+                          mb-3
+                        "
+                      >
+                        <span class="euro">€ </span>{{ dish.price }}
+                      </div>
+                    </div>
 
                                         <div class="add-button-container mx-3 mb-3" @click="addToCart(dish)"
                                             :class="dish.visible==1 ? 'd-none' : ''">
