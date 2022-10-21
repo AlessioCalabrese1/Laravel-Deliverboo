@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::namespace('Api')->group(function(){
+    Route::get('/restaurant', 'RestaurantController@index');
+    Route::get('/restaurant/filter/{id}', 'RestaurantController@filter');
+    /** ATTENZIONE ALL'ORDINE DELLE ROTTE QUANDO ABBIAMO UN PARAMETRO, SE LA ROTTA NON è UNA SHOW METTERLA PRIMA */
+    Route::get('/restaurant/{id}', 'RestaurantController@show');
+
+    Route::get('/category', 'CategoryController@index');
+});

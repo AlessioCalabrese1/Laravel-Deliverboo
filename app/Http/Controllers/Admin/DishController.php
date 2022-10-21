@@ -11,8 +11,13 @@ use PhpParser\Node\Scalar\MagicConst\Dir;
 
 class DishController extends Controller
 {
-    protected $validationRules = [
 
+    private $validationRules = [
+        'name' => ['required', 'min:2', 'max:50',],
+        'price' => ['required', 'numeric', 'max:1000', 'min:0.01',],
+        'description' => ['required', 'min:10', 'max:1000',],
+        'dishPic' => ['required', 'image'],
+        'visible' => ['required', 'boolean'],
     ];
 
     /**
@@ -52,12 +57,16 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
+
         $sentData = $request->all();
+
+        $request->validate($this->validationRules);
+
         $newDish = new Dish();
         $sentData['dishPic']= Storage::put('uploads', $sentData['dishPic']);
         $sentData['restaurant_id'] = Auth::user()->restaurant->id;
         $newDish = $newDish->create($sentData);
-        return redirect()->route('admin.dish.show', $newDish->id)->with('created', $newDish->name);
+        return redirect()->route('admin.dish.show', $newDish->id)->with('created' , 'The dish ' . '"' . $sentData['name'] . '"' . ' has been created!');
     }
 
     /**
@@ -103,7 +112,18 @@ class DishController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+
         $sentData = $request->all();
+
+        $request->validate([
+            'name' => ['required', 'min:2', 'max:50',],
+            'price' => ['required', 'numeric', 'max:1000', 'min:0.01',],
+            'description' => ['required', 'min:10', 'max:1000',],
+            'dishPic' => ['image'],
+            'visible' => ['required', 'boolean'],
+        ]);
+
         $dish = Dish::findOrFail($id);
 
         if(array_key_exists('dishPic', $sentData)){
@@ -113,7 +133,7 @@ class DishController extends Controller
             $sentData['dishPic'] = $dish->dishPic;
         }
         $dish = $dish->update($sentData);
-        return redirect()->route('admin.dish.show', $id);
+        return redirect()->route('admin.dish.show', $id)->with('edited' , 'The dish ' . '"' . $sentData['name'] . '"' . ' has been edited!');
     }
 
     /**
@@ -127,6 +147,6 @@ class DishController extends Controller
         //
         $dish=Dish::findOrFail($id);
         $dish->delete();
-        return redirect()->route('admin.restaurant.index')->with('delete' , 'The dish ' . $dish->name . ' has been deleted!');
+        return redirect()->route('admin.restaurant.index')->with('delete' , 'The dish ' . '"' . $dish->name . '"' . ' has been deleted!');
     }
 }

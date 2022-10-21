@@ -8,25 +8,35 @@
 
 body{
     font-family: 'Poppins', sans-serif;
+    background-color: $backgroundColor;
 }
 #restaurant{
     .container-fluid{
-        img{
-            border-radius: 20px;
+        .radius-shadow{
+            border-radius: 40px;
+            box-shadow: 5px 30px 50px rgba(0, 0, 0, 0.2);
             width: 100%;
         }
         .floating-btn{
             bottom: 10px;
             right: 10px;
-
         }
-    }
-    .my-container{
-        overflow-x: scroll;
     }
     .small-badge{
         font-size: 0.9rem;
-    }     
+    }
+
+    //! stile delle carte nel backoffice
+    .my-card{
+        background-color: white;
+        border-radius: 30px;
+        padding: 30px;
+
+        .my-text{
+            color: #999999;
+            font-size: 0.9rem;
+        }
+    }
 }
 
 .containerdaeliminare{
@@ -47,3 +57,136 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
   }
+
+.my-btn-shadow{
+    box-shadow: 5px 7px 20px rgba(0, 0, 0, 0.12);
+}
+
+.my-shadow{
+    box-shadow: 5px 40px 50px rgba(0, 0, 0, 0.1);
+}
+
+.my-rounded{
+    border-radius: 30px;
+}
+
+.my-rounded-top{
+    border-radius: 30px 30px 0 0;
+}
+
+.my-btn{
+    background-color: $primaryColor;
+    color: white;
+    &:hover{
+        color: white;
+    }
+}
+
+#dishPic{
+    font-size: 0.8rem;
+}
+
+ul{
+    list-style: none;
+}
+
+// Bottoni personalizzati nel backoffice
+.my-btn-primary{
+    background-color: $primaryBtnColor;
+}
+
+.my-btn-success{
+    background-color: $successBtnColor;
+}
+
+.my-btn-danger{
+    background-color: $dangerBtnColor;
+}
+
+.my-msg{
+    font-size: 0.9rem;
+    color: $secondaryColor;
+
+    &:hover{
+        color: $secondaryColor;
+    }
+}
+
+.user-pill{
+    background-color: white;
+    box-shadow: 5px 3px 20px rgba(0, 0, 0, 0.1);
+    a{
+        font-size: 0.9rem;
+    }
+}
+
+.my-user-name{
+    color: $primaryColor;
+}
+
+/* style per la pagina di errore */
+.myBackground{
+    background-image: url("../images/bg_error.jpg");
+    width: 100vw;
+    background-size: cover;
+    height: 25vh;
+    background-repeat: no-repeat;
+    text-align: center;
+    margin-top: -60px;
+    margin-bottom: 0px;
+}
+
+
+.txt-denied{
+    margin-top: 150px;
+    font-size: 2em;
+    font-family: 'Poppins';
+}
+
+text-error{
+    margin-top: 150px;
+    font-size: 1em;
+    font-family: 'Poppins';
+}
+
+
+.my-btn-errorpage{
+    width: 150px;
+}
+
+.error-img-responsive {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+  }
+
+/* alerts messages */
+
+.my-alert-success{
+    border-radius: 20px;
+    padding: 18px;
+    text-align: center;
+    background-color: #c8fedd;
+    color: rgb(0, 165, 8);
+    font-size: 20px;
+}
+
+.my-alert-delete{
+    border-radius: 20px;
+    padding: 20px;
+    background-color: #ffd0d0;
+    color: rgb(194, 0, 0);
+    font-size: 18px;
+    align-items: center;
+}
+
+.box-delete-img, .box-success-img{
+    img{
+        width: 50px;
+        margin-left: 20px;
+    }
+}
+
+
+
+

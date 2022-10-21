@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
     {
         $users=[
             [
-                'name'=> 'boolean',
+                'name'=> 'boolean1',
                 'email'=> 'deliveboo1@ciao.com',
                 'password'=> Hash::make('team4'),
                 'p_iva'=>'39829432912',
@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
             ],
 
             [
-                'name'=> 'boolean',
+                'name'=> 'boolean2',
                 'email'=> 'deliveboo2@ciao.com',
                 'password'=> Hash::make('team4'),
                 'p_iva'=>'39824932456',
@@ -33,13 +33,51 @@ class UsersTableSeeder extends Seeder
             ],
 
             [
-                'name'=> 'boolean',
+                'name'=> 'boolean3',
                 'email'=> 'deliveboo3@ciao.com',
                 'password'=> Hash::make('team4'),
                 'p_iva'=>'32798427989',
                 'role'=> 1,
                 'profilePic'=> 'https://static.wikia.nocookie.net/villains/images/1/1f/BCS_S4_Gustavo_Fring.jpg/revision/latest?cb=20180828045024',
             ],
+
+            [
+                'name'=> 'boolean4',
+                'email'=> 'deliveboo4@ciao.com',
+                'password'=> Hash::make('team4'),
+                'p_iva'=>'32798432989',
+                'role'=> 1,
+                'profilePic'=> 'https://static.wikia.nocookie.net/villains/images/1/1f/BCS_S4_Gustavo_Fring.jpg/revision/latest?cb=20180828045024',
+            ],
+
+            [
+                'name'=> 'boolean5',
+                'email'=> 'deliveboo5@ciao.com',
+                'password'=> Hash::make('team4'),
+                'p_iva'=>'32798428549',
+                'role'=> 1,
+                'profilePic'=> 'https://static.wikia.nocookie.net/villains/images/1/1f/BCS_S4_Gustavo_Fring.jpg/revision/latest?cb=20180828045024',
+            ],
+
+            [
+                'name'=> 'boolean6',
+                'email'=> 'deliveboo6@ciao.com',
+                'password'=> Hash::make('team4'),
+                'p_iva'=>'32798427989',
+                'role'=> 1,
+                'profilePic'=> 'https://static.wikia.nocookie.net/villains/images/1/1f/BCS_S4_Gustavo_Fring.jpg/revision/latest?cb=20180828045024',
+            ],
+
+            [
+                'name'=> 'boolean7',
+                'email'=> 'deliveboo7@ciao.com',
+                'password'=> Hash::make('team4'),
+                'p_iva'=>'32792127989',
+                'role'=> 1,
+                'profilePic'=> 'https://static.wikia.nocookie.net/villains/images/1/1f/BCS_S4_Gustavo_Fring.jpg/revision/latest?cb=20180828045024',
+            ],
+
+            
 
         ];
 

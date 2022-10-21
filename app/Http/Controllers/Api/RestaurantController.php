@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class OrderController extends Controller
+class RestaurantController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,27 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Auth::user()->restaurant->orders;
-        return view('admin.order.index', compact('orders'));
+        $restaurants = Restaurant::paginate(6);
+        return response()->json([
+            'response' => true,
+            'count' => count($restaurants),
+            'results' => $restaurants
+        ]);
     }
+
+    public function filter($id)
+    {
+        $restaurants = Restaurant::whereHas('categories', function($query) use ($id){
+            $query->where('category_id', $id);
+        })->paginate(6);
+        return response()->json([
+            'response' => true,
+            'count' => count($restaurants),
+            'results' => $restaurants
+        ]);
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,11 +55,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        /* LAVORO SOSPESO */
-        $sentData = $request->all();
-        $newOrder = new Order();
-        $newOrder = $newOrder->create($sentData);
-        return ;
+        //
     }
 
     /**
@@ -53,12 +66,11 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::findOrFail($id);
-        if($order->restaurant->user_id == auth()->id()) {
-            return view('admin.order.show' , compact('order'));
-        } else {
-            return view('admin.dish.errors.accessDenied');
-        }
+        $restaurant = Restaurant::with(['dishes', 'categories'])->findOrFail($id);
+        return response()->json([
+            'response' => true,
+            'results' => $restaurant
+        ]);
     }
 
     /**
@@ -92,9 +104,6 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        // $order = Order::findOrFail($id);
-        // $order->delete();
-
-        // return redirect()->route('admin.restaurant.index')->with('delete', 'The order of ' . $order->name . ' ' . $order->surname . ' has been deleted');
+        //
     }
 }

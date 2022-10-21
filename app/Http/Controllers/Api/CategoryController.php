@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
+use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class OrderController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Auth::user()->restaurant->orders;
-        return view('admin.order.index', compact('orders'));
+        $categories = Category::all();
+        return response()->json([
+            'response' => true,
+            'count' => count($categories),
+            'results' => $categories,
+        ]);
     }
 
     /**
@@ -38,11 +41,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        /* LAVORO SOSPESO */
-        $sentData = $request->all();
-        $newOrder = new Order();
-        $newOrder = $newOrder->create($sentData);
-        return ;
+        //
     }
 
     /**
@@ -53,12 +52,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::findOrFail($id);
-        if($order->restaurant->user_id == auth()->id()) {
-            return view('admin.order.show' , compact('order'));
-        } else {
-            return view('admin.dish.errors.accessDenied');
-        }
+        //
     }
 
     /**
@@ -92,9 +86,6 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        // $order = Order::findOrFail($id);
-        // $order->delete();
-
-        // return redirect()->route('admin.restaurant.index')->with('delete', 'The order of ' . $order->name . ' ' . $order->surname . ' has been deleted');
+        //
     }
 }

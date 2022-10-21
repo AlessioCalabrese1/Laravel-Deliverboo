@@ -1,22 +1,30 @@
 <template>
-  <section>
-    <div class="container-lg text-center mt-5">
-
-        <a href="/login" class="btn btn-primary rounded-pill">Login</a>
-        <a href="/register" class="btn btn-warning rounded-pill">Register</a>
-    </div>
-    <div class="container-lg containerdaeliminare">
-      <img src="https://sicilia.agesci.it/nautici/wp-content/uploads/sites/12/2018/05/wip.png" alt="working in progress">
-    </div>
-  </section>
+  <div>
+    <HeaderComponent />
+    <main>
+      <router-view></router-view>
+    </main>
+    <FooterComponent />
+  </div>
 </template>
 
 <script>
+import HeaderComponent from '../components/HeaderComponent.vue';
+import FooterComponent from '../components/FooterComponent.vue';
 export default {
-
+  components:{
+    HeaderComponent,
+    FooterComponent
+  }
 }
 </script>
 
-<style>
+<style scoped lang="scss">
+@import "../../sass/variables";
+
+main{
+  padding: 105px 0;
+  background-color: $backgroundColor;
+}
 
 </style>

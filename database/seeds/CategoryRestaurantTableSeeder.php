@@ -53,8 +53,14 @@ class CategoryRestaurantTableSeeder extends Seeder
         $restaurants[1]->categories()->attach($categories[0]);
         
         $restaurants[2]->categories()->attach($categories[1]);
-        
 
+        $restaurants[3]->categories()->attach($categories[2]);
+
+        $restaurants[4]->categories()->attach($categories[7]);
+        
+        $restaurants[5]->categories()->attach($categories[5]);
+
+        $restaurants[6]->categories()->attach($categories[8]);
        
     }
 }
