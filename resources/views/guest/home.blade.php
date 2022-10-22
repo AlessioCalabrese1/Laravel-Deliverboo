@@ -32,7 +32,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     
-    <title>Home | Guest</title>
+    <title>DeliveBoo | Home</title>
 </head>
 <body>
     <div id="root"></div>

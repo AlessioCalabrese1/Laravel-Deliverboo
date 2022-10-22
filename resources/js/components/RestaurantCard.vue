@@ -1,11 +1,22 @@
 <template>
-    <div class="col-12 col-md-6 col-lg-4 my-3">
+    <div class="col-12 col-md-6 col-lg-4 my-4">
         <a :href="'/HomeRestaurant/'+restaurant.id">
             <div class="card-container bg-white my-rounded my-shadow  mx-auto">
                 <div class="img-container">
                     <img :src="checkUrl(restaurant.restaurantPic)" :alt="restaurant.name">
                 </div>
-                <h4 class="p-4">{{restaurant.name}}</h4>
+                <div class="p-4">
+                    <h4>{{restaurant.name}}</h4>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="m-0"><span><i class="fa-solid fa-location-dot"></i></span> &nbsp;{{ restaurant.address }}</p>
+                            <p class="m-0"><span><i class="fa-sharp fa-solid fa-clock"></i></span> &nbsp;{{restaurant.open.slice(0, 5)}} – {{restaurant.close.slice(0, 5)}}</p>
+                        </div>
+                        <div class="add-button-container" @click="addToCart(dish)">
+                            <div class="add-button"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </a>
     </div>
@@ -39,6 +50,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../sass/variables";
 .card-container {
     width: 95%;
     cursor: pointer;
@@ -61,4 +73,21 @@ a{
     text-decoration: none;
     color: black;
 }
+
+.add-button-container{
+    background-color: green;
+    color: white;
+    font-size: 25px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    cursor: pointer;
+
+    i{
+        font-size: 1.2rem;
+    }
+}
+
+
 </style>

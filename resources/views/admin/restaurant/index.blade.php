@@ -2,22 +2,56 @@
 
 @section('content')
     <div class="container" id="restaurant">
-        
+
         @if (session('delete'))
-            <div class="alert alert-danger" role="alert">
-                <span class="text-capitalize">{{ session('delete') }}</span>
+            <div class="alert alert-success my-alert-delete container-lg" role="alert">
+
+                    <div class="row align-items-center">
+                        <div class="box-delete-img ">
+                            <img src="{{ url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Oxygen480-actions-trash-empty.svg/192px-Oxygen480-actions-trash-empty.svg.png?20190510103517') }}" alt="success">
+                        </div>
+                        <div class="col-8">
+                            <strong>Deleted!</strong>
+                            <span class="text-capitalize">{{ session('delete') }}</span>
+                        </div>
+                    </div>
+
             </div>
+
         @endif
 
         @if (session('edited'))
-            <div class="alert alert-success" role="alert">
-                <span class="text-capitalize">{{ session('edited') }}</span>
+            <div class="alert alert-success my-alert-success container-lg" role="alert">
+                <div class="row align-items-center">
+                    <div class="box-success-img ">
+                        <img src="{{ url('https://www.svgrepo.com/show/13650/success.svg') }}" alt="success">
+                    </div>
+                    <div class="col-9">
+                        <strong>Success!</strong>
+                        <span class="text-capitalize">{{ session('edited') }}</span>
+                    </div>
+                </div>
             </div>
         @endif
 
         @if (session('created'))
-            <div class="alert alert-success" role="alert">
+            {{-- <div class="alert alert-success my-alert-success" role="alert">
+                <div class="pb-2">
+                    <img class="w-25" src="{{ url('https://www.svgrepo.com/show/13650/success.svg') }}" alt="success">
+                </div>
+                <strong>Success!</strong>
                 <span class="text-capitalize">{{ session('created') }}</span>
+            </div> --}}
+            <div class="alert alert-success my-alert-success container-lg" role="alert">
+                <div class="row align-items-center">
+                    <div class="box-success-img ">
+                        <img src="{{ url('https://www.svgrepo.com/show/13650/success.svg') }}" alt="success">
+                    </div>
+                    <div class="col-9">
+                        <strong>Success!</strong>
+                        <span class="text-capitalize">{{ session('created') }}</span>
+                    </div>
+                </div>
             </div>
         @endif
 
@@ -27,7 +61,7 @@
             </div>
             <div class="col-md-7 col-6 d-flex justify-content-end flex-wrap">
                 @forelse ($restaurants->categories as $category)
-                    <span class="badge category-badge badge-pill text-white font-weight-lighter my-btn-shadow mx-3"
+                    <span class="badge badge-pill text-white my-btn-shadow mx-2 px-3 py-2"
                         style="background-color: {{ $category->color }}">{{ $category->name }}</span>
                 @empty
                 @endforelse
@@ -53,10 +87,10 @@
     </p> --}}
         <div class="container-fluid p-0 my-3 position-relative">
             @if (filter_var($restaurants->restaurantPic, FILTER_VALIDATE_URL))
-                <img src="{{ $restaurants->restaurantPic }}" alt="{{ $restaurants->name }} photo" class="rounded-5">
+                <img src="{{ $restaurants->restaurantPic }}" alt="{{ $restaurants->name }} photo" class="rounded-5 radius-shadow">
             @else
                 <img src="{{ asset('storage/' . $restaurants->restaurantPic) }}" alt="{{ $restaurants->name }} photo"
-                    class="rounded-5">
+                    class="rounded-5 radius-shadow">
             @endif
         </div>
 
@@ -286,7 +320,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn my-btn-danger rounded-pill w-100 text-white my-btn-shadow p-2">Delete</button>
-    
+
                             </form>
                         </div> --}}
                         </div>

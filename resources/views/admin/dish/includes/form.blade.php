@@ -19,7 +19,7 @@
                         value="{{ old('name', $newDish->name) }}" required>
                         @error('name')
                         <div class="alert alert-danger">
-                            {{ $message }}
+                             {{ $message }}
                         </div>
                         @enderror
                 </div>
@@ -63,13 +63,15 @@
                         name="price" value="{{ old('price', $newDish->price) }}" min="0.01">
                         @error('price')
                         <div class="alert alert-danger">
-                            {{ $message }}
+                            <span class="material-icons-outlined">
+                                done
+                                </span> {{ $message }}
                         </div>
                         @enderror
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="visible" id="available" 
+                    <input class="form-check-input" type="radio" name="visible" id="available"
                     @if ($newDish->visible == 0)
                         checked
                     @endif

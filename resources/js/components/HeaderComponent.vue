@@ -1,5 +1,5 @@
 <template>
-    <header class="position-fixed w-100">
+    <header class="position-fixed w-100 border-bottom">
         <div class="position-relative w-100">
             <div class="container-lg ">
                 <div class="row justify-content-between px-md-0 px-2 align-content-center">

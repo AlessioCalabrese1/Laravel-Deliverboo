@@ -20,16 +20,14 @@
         <!-- Colonna join us -->
         <div class="col-6 col-md-3">
           <!-- Links -->
-          <h5 class="text-uppercase font-weight-bold h4">join us</h5>
+          <h6 class="text-uppercase font-weight-bold h4">join us</h6>
+          <br>
           <ul class="list-unstyled">
             <li class="my-2">
               <a href="#!">Careers</a>
             </li>
             <li class="my-2">
               <a href="#!">Restaurants</a>
-            </li>
-            <li class="my-2">
-              <a href="#!">Become a Courier</a>
             </li>
             <li class="my-2">
               <a href="#!">About</a>
@@ -40,7 +38,7 @@
         <!-- Colonna Let us help you -->
         <div class="col-6 col-md-3">
           <!-- Links -->
-          <h5 class="text-uppercase font-weight-bold h4">let us help you</h5>
+          <h6 class="text-uppercase font-weight-bold h4">let us help you</h6>
 
           <ul class="list-unstyled">
             <li class="my-2">
@@ -58,8 +56,8 @@
         <!-- Colonna Follow us -->
         <div class="col-6 col-md-3">
           <!-- Links 3 -->
-          <h5 class="text-uppercase font-weight-bold h4">follow us</h5>
-
+          <h6 class="text-uppercase font-weight-bold h4">follow us</h6>
+          <br>
           <ul class="list-unstyled">
             <li class="my-2">
               <a href="#!">Facebook</a>
@@ -86,9 +84,9 @@
         </div>
         <div class="footer-copyright-links">
           <p class="m-0">
-            <a class="mx-2" href="#!">Privacy Policy</a><span class="pipe-line">|</span>
-            <a class="mx-2" href="#!">Terms & condition</a><span class="pipe-line">|</span>
-            <a class="mx-2" href="#!">Cookies Policy</a>
+            <a class="mx-2 text-white" href="#!">Privacy Policy</a>|
+            <a class="mx-2 text-white" href="#!">Terms & condition</a>|
+            <a class="mx-2 text-white" href="#!">Cookies Policy</a>
           </p>
         </div>
       </div>
@@ -129,7 +127,7 @@ a {
 
 li,
 p,
-h5 {
+h6 {
   color: white;
 }
 
@@ -140,17 +138,9 @@ h5 {
   }
 }
 
-.pipe-line{
-  color: #999999;
+h6{
+  font-family: "Syncopate", sans-serif;
+  font-weight: 800;
 }
-
-// .text-title {
-//   display: inline-block;
-//   margin-left: 45px;
-//   -webkit-transform: scale(2, 1);
-//   -moz-transform: scale(2, 1);
-//   -o-transform: scale(2, 1);
-//   transform: scale(2, 1);
-// }
 
 </style>

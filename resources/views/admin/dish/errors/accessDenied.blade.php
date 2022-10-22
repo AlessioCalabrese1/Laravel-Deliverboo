@@ -3,11 +3,11 @@
 @section('content')
     <div class="d-flex">
         <div class="container-fluid myBackground text-center align-self-center">
-            <img class="error-img-responsive pt-3" src="{{ asset('images/hamburger.png') }}" alt="no pass">
+            <img class="error-img-responsive pt-3" src="{{ url('https://pngimg.com/uploads/burger_sandwich/burger_sandwich_PNG96715.png') }}" alt="no pass">
         </div>
     </div>
 
-    <h1 class="text-center">Access Denied</h1>
+    <div class="text-center txt-denied">Access Denied</div>
     <div class="text-error text-center">Sorry, but you are not allowed to enter this section.</div>
 
     <div class="">
