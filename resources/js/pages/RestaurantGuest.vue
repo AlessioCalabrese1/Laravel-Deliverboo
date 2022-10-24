@@ -39,7 +39,7 @@
                                             :class="dish.visible == 1 ? 'd-none' : ''">
                                             <div class="add-button">+</div>
                                         </div>
-                                        div
+
                                     </div>
                                 </div>
                             </div>
@@ -161,6 +161,7 @@
                     this.cart.push(dish);
                     this.length++;
                     localStorage.setItem("cart", JSON.stringify(this.cart));
+
 
                 }
                 //!  se il carrello non e' vuoto controlliamo che stiamo ordinando dallo stesso ristorante in caso contrario resettiamo il cart e pushamo il piatto
