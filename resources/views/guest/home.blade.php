@@ -36,5 +36,7 @@
 </head>
 <body>
     <div id="root"></div>
+    <script src="https://unpkg.com/vue/dist/vue.js%22%3E"></script>
+    <script src="https://unpkg.com/vue-braintree/dist/vue-braintree.umd.min.js%22%3E"></script>
 </body>
 </html>

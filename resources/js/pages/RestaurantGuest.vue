@@ -214,6 +214,14 @@
                                 </div>
                             </form>
                         </div>
+
+                        <div class="row">
+                            <v-braintree 
+                                authorization="sandbox_24xz6hxg_vds2qv5666hkyfqt"
+                                @success="onSuccess"
+                                @error="onError"
+                            ></v-braintree>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -408,6 +416,14 @@
                 }
             },
 
+            onSuccess (payload) {
+                let nonce = payload.nonce;
+                // Do something great with the nonce...
+                },
+            onError (error) {
+                let message = error.message;
+                // Whoops, an error has occured while trying to get the nonce
+            }       
         },
         created() {
             this.getRestaurant();

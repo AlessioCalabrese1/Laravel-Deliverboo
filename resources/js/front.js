@@ -2,8 +2,10 @@ window.Vue = require('vue');
 
 import App from './views/App';
 import VueRouter from 'vue-router';
+import VueBraintree from 'vue-braintree';
 
 Vue.use(VueRouter);
+Vue.use(VueBraintree);
 
 import router from './router';
 
